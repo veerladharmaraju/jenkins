@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jenkins CI/CD Dashboard - Web App Deployment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fa;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    header {
+      background: linear-gradient(135deg, #0a84ff, #0052cc);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: 28px; }
+    .status {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .success { background: #28a745; color: white; }
+    .failed { background: #dc3545; color: white; }
+    .running { background: #ffc107; color: black; animation: pulse 2s infinite; }
+
+    .section {
+      padding: 25px 30px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-left: 5px solid #0a84ff;
+    }
+    .label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .value {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: #f8f9fa;
+      color: #555;
+    }
+    .app-output {
+      background: #f8f9fa;
+      border: 2px dashed #0a84ff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      min-height: 300px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #f1f3f5;
+      color: #666;
+      font-size: 14px;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🚀 Jenkins CI/CD Pipeline</h1>
+    <p>GitHub → Jenkins → EC2 Deployment</p>
+    <div class="status success">✅ Deployment Successful</div>
+  </header>
+
+  <div class="section">
+    <h2>Pipeline Status</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="label">Last Build</div>
+        <div class="value">#47</div>
+        <small style="color: #28a745;">Completed 12 minutes ago</small>
+      </div>
+      <div class="card">
+        <div class="label">Branch</div>
+        <div class="value">main</div>
+      </div>
+      <div class="card">
+        <div class="label">Deployed To</div>
+        <div class="value">AWS EC2 Instance</div>
+      </div>
+      <div class="card">
+        <div class="label">Deployment Time</div>
+        <div class="value">45 seconds</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Build History (Last 5 Builds)</h2>
+    <table>
+      <tr>
+        <th>Build #</th>
+        <th>Status</th>
+        <th>Commit</th>
+        <th>Time</th>
+        <th>Duration</th>
+      </tr>
+      <tr>
+        <td>#47</td>
+        <td><span class="status success">SUCCESS</span></td>
+        <td>abc1234</td>
+        <td>12 min ago</td>
+        <td>45s</td>
+      </tr>
+      <tr>
+        <td>#46</td>
+        <td><span class="status success">SUCCESS</span></td>
+        <td>def5678</td>
+        <td>2 hours ago</td>
+        <td>52s</td>
+      </tr>
+      <tr>
+        <td>#45</td>
+        <td><span class="status failed">FAILED</span></td>
+        <td>ghi9012</td>
+        <td>Yesterday</td>
+        <td>1m 12s</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Your Web Application Output (Live from EC2)</h2>
+    <div class="app-output" id="appOutput">
+      <h3>🌐 Web Server Output</h3>
+      <p><strong>Status:</strong> <span style="color:green;">Running on EC2</span></p>
+      <p><strong>URL:</strong> <a href="http://your-ec2-public-ip" target="_blank">http://your-ec2-public-ip</a></p>
+      <hr>
+      <p>Your web application is successfully deployed via Jenkins Pipeline!</p>
+      <p>✅ Code pulled from GitHub</p>
+      <p>✅ Built & Tested</p>
+      <p>✅ Deployed to AWS EC2</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Jenkins Pipeline Stages</h2>
+    <div class="grid">
+      <div class="card">1. Checkout from GitHub <span style="color:green;">✔</span></div>
+      <div class="card">2. Build Application <span style="color:green;">✔</span></div>
+      <div class="card">3. Run Tests <span style="color:green;">✔</span></div>
+      <div class="card">4. Deploy to EC2 <span style="color:green;">✔</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Jenkins Dashboard • Connected to GitHub Repo • Deployed on AWS EC2
+</footer>
+
+</body>
+</html>
