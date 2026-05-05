@@ -2,28 +2,23 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Info') {
+        stage('Clone Code') {
             steps {
-                echo "Running on branch: ${env.BRANCH_NAME}"
+                echo "Cloning repo..."
             }
         }
 
         stage('Build') {
             steps {
-                echo "Building application..."
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "Testing application..."
+                echo "No build required (static app)"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deploying application..."
+                sh '''
+                sudo cp -r * /var/www/html/
+                '''
             }
         }
     }
