@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Branch CI/CD Pipeline</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #60a5fa;
+        }
+        .pipeline-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: #1e2937;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .branch {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        .branch-label {
+            width: 180px;
+            padding: 12px 20px;
+            background: #334155;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2;
+        }
+        .pipeline {
+            flex: 1;
+            height: 80px;
+            background: linear-gradient(90deg, #3b82f6, #22d3ee);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: relative;
+            margin-left: -20px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .stage {
+            background: #1e2937;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 110px;
+            z-index: 2;
+            border: 3px solid #60a5fa;
+        }
+        .arrow {
+            position: absolute;
+            right: -15px;
+            font-size: 28px;
+            color: #60a5fa;
+        }
+        .main-branch .branch-label { background: #166534; border: 2px solid #4ade80; }
+        .feature-branch .branch-label { background: #4338ca; border: 2px solid #818cf8; }
+        .develop-branch .branch-label { background: #854d0e; border: 2px solid #fbbf24; }
+
+        .status {
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+        }
+        .success { color: #4ade80; }
+        .running { color: #fbbf24; animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🌐 Multi-Branch Pipeline for Web Server</h1>
+    <div class="pipeline-container">
+        <!-- Main Branch -->
+        <div class="branch main-branch">
+            <div class="branch-label">
+                main<br>
+                <span class="status success">● Deployed</span>
+            </div>
+            <div class="pipeline">
+                <div class="stage">Build <span class="status success">✓</span></div>
+                <div class="stage">Test <span class="status success">✓</span></div>
+                <div class="stage">Security Scan <span class="status success">✓</span></div>
+                <div class="stage">Deploy to Prod <span class="status success">✓</span></div>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+
+        <!-- Develop Branch -->
+        <div class="branch develop-branch">
+            <div class="branch-label">
+                develop<br>
+                <span class="status running">● Running</span>
+            </div>
+            <div class="pipeline">
+                <div class="stage">Build <span class="status success">✓</span></div>
+                <div class="stage">Test <span class="status running">⟳</span></div>
+                <div class="stage">Security Scan</div>
+                <div class="stage">Deploy to Staging</div>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+
+        <!-- Feature Branches -->
+        <div class="branch feature-branch">
+            <div class="branch-label">
+                feature/auth<br>
+                <span class="status">● Pending</span>
+            </div>
+            <div class="pipeline">
+                <div class="stage">Build <span class="status success">✓</span></div>
+                <div class="stage">Unit Test</div>
+                <div class="stage">PR Review</div>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+
+        <div class="branch feature-branch">
+            <div class="branch-label">
+                feature/payment<br>
+                <span class="status">● Pending</span>
+            </div>
+            <div class="pipeline">
+                <div class="stage">Build</div>
+                <div class="stage">Unit Test</div>
+                <div class="stage">PR Review</div>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+    </div>
+
+    <p style="text-align:center; color:#94a3b8;">
+        This is a visual representation of a Multi-Branch CI/CD Pipeline (e.g., Jenkins, GitHub Actions, GitLab CI).<br>
+        You can easily integrate this with real backend status using JavaScript.
+    </p>
+
+    <script>
+        // Optional: Add hover effect
+        document.querySelectorAll('.pipeline').forEach(pipe => {
+            pipe.addEventListener('mouseenter', () => {
+                pipe.style.transform = 'scale(1.02)';
+                pipe.style.transition = '0.3s';
+            });
+            pipe.addEventListener('mouseleave', () => {
+                pipe.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
